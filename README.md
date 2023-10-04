@@ -1,2 +1,2 @@
-# IvanZolo2004_vs_kussia88
+# idk
 Final project on Java++
