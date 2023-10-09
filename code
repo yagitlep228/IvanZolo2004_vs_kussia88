@@ -1,7 +1,7 @@
 from random import randint
 from pygame import *
-width = 1920
-height = 1080
+width = 1440
+height = 940
 window = display.set_mode((width, height))
 display.set_caption("depre??ed")
 background = transform.scale(image.load('back.jpg'), (width, height))
@@ -32,10 +32,6 @@ class Player(GameSprite):
             self.rect.x -= self.speed
         if keys[K_d] and self.rect.x < width - 80:
             self.rect.x += self.speed
-        if keys[K_w] and self.rect.y >5:
-            self.rect.y -= self.speed
-        if keys[K_s] and self.rect.y < height - 80:
-            self.rect.y += self.speed
 
 lost = 0
 score = 0
@@ -47,7 +43,7 @@ class Enemy(GameSprite):
             self.rect.x = randint(80, width-80)
             self.rect.y = 0
 
-player1 = Player('playerr.png', 1000,850,13,130,150)
+player1 = Player('playerr.png', 800,700,13,130,150)
 run = True
 finish = False
 health = 3
@@ -55,12 +51,12 @@ clock = time.Clock()
 FPS = 60
 monsters = sprite.Group()
 asteroids = sprite.Group()
-for a in range(1, 3):
+for a in range(5):
     asteroid = Enemy('ak.png', randint(80, 620), -40, randint(1, 3), 140, 140)
     asteroids.add(asteroid)
-for i in range(1,5):
-monster = Enemy('mina.png', randint(80,width-80),-40,randint(1, 3),140,140)
-monsters.add(monster)
+    monster = Enemy('mina.png', randint(80,width-80),-40,randint(1, 3),140,140)
+    monsters.add(monster)
+
 while run:
     for e in event.get():
         if e.type == QUIT:
@@ -76,25 +72,25 @@ while run:
         player1.reset()
 
     if score>=100:
-                finish = True
-                window.blit(win, (200,200))
-    if sprite.spritecollide(player1, asteroid , False) or lost >=10:
         finish = True
-        window.blit(lose, (200,200))
+        window.blit(win, (200,200))
+    '''if sprite.spritecollide(player1, asteroid , False) or lost >=10:
+        finish = True
+        window.blit(lose, (200,200))'''
     
 
 
   
 
-        if health == 0:
-            finish = True
-            window.blit(lose, (200,200))        
-        text = font2.render("убил:" + str(score), 1, (255, 255, 255))
-        window.blit(text,(10,50))
-        text_lose = font2.render("пропустил:"+str(lost),1,(255,255,255))
-        text_health = font1.render('жизни:' + str(health), 1, (255, 255, 255))
-        window.blit(text_health,(10,80))
-        window.blit(text_lose,(10,20))
-        display.update()
+    if health == 0:
+        finish = True
+        window.blit(lose, (200,200))        
+    text = font2.render("убил:" + str(score), 1, (255, 255, 255))
+    window.blit(text,(10,50))
+    text_lose = font2.render("пропустил:"+str(lost),1,(255,255,255))
+    text_health = font1.render('жизни:' + str(health), 1, (255, 255, 255))
+    window.blit(text_health,(10,80))
+    window.blit(text_lose,(10,20))
+    display.update()
 
     clock.tick(FPS)
